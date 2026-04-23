@@ -7,6 +7,12 @@ load_dotenv()
 
 app = Flask(__name__)
 
+# Preload sentence-transformers at startup
+print("Loading sentence-transformers model...")
+from sentence_transformers import SentenceTransformer
+model = SentenceTransformer('all-MiniLM-L6-v2')
+print("Model loaded successfully!")
+
 # Track response time
 @app.before_request
 def before_request():
