@@ -4,8 +4,6 @@ import com.internship.tool.entity.PolicyRecord;
 import com.internship.tool.exception.ResourceNotFoundException;
 import com.internship.tool.repository.PolicyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,42 +12,37 @@ import java.util.List;
 public class PolicyRecordService {
 
     @Autowired
-    private PolicyRecordRepository repository;
+    private PolicyRecordRepository policyRecordRepository;
 
-    @CacheEvict(value = {"policies", "policy"}, allEntries = true)
-    public PolicyRecord savePolicy(PolicyRecord policy) {
-        return repository.save(policy);
-    }
-
-    @Cacheable(value = "policies")
     public List<PolicyRecord> getAllPolicies() {
-        return repository.findAll();
+        return policyRecordRepository.findAll();
     }
 
-    @Cacheable(value = "policy", key = "#id")
     public PolicyRecord getPolicyById(Long id) {
-        return repository.findById(id)
+        return policyRecordRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Policy with ID " + id + " not found"));
     }
 
-    @CacheEvict(value = {"policies", "policy"}, allEntries = true)
-    public PolicyRecord updatePolicy(Long id, PolicyRecord newPolicy) {
-        PolicyRecord existing = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Policy with ID " + id + " not found"));
-
-        existing.setPolicyName(newPolicy.getPolicyName());
-        existing.setDescription(newPolicy.getDescription());
-        existing.setCategory(newPolicy.getCategory());
-        existing.setStatus(newPolicy.getStatus());
-
-        return repository.save(existing);
+    public PolicyRecord savePolicy(PolicyRecord policyRecord) {
+        return policyRecordRepository.save(policyRecord);
     }
 
-    @CacheEvict(value = {"policies", "policy"}, allEntries = true)
+    public PolicyRecord updatePolicy(Long id, PolicyRecord updatedPolicy) {
+        PolicyRecord existingPolicy = policyRecordRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Policy with ID " + id + " not found"));
+
+        existingPolicy.setTitle(updatedPolicy.getTitle());
+        existingPolicy.setDescription(updatedPolicy.getDescription());
+        existingPolicy.setDepartment(updatedPolicy.getDepartment());
+        existingPolicy.setStatus(updatedPolicy.getStatus());
+
+        return policyRecordRepository.save(existingPolicy);
+    }
+
     public void deletePolicy(Long id) {
-        PolicyRecord existing = repository.findById(id)
+        PolicyRecord existingPolicy = policyRecordRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Policy with ID " + id + " not found"));
 
-        repository.delete(existing);
+        policyRecordRepository.delete(existingPolicy);
     }
 }

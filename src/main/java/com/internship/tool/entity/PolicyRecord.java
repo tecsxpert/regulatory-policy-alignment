@@ -1,44 +1,36 @@
 package com.internship.tool.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import java.io.Serializable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "policy_records")
-public class PolicyRecord implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class PolicyRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Policy name is required")
-    private String policyName;
-
-    @NotBlank(message = "Description is required")
+    private String title;
     private String description;
-
-    @NotBlank(message = "Category is required")
-    private String category;
-
-    @NotBlank(message = "Status is required")
+    private String department;
     private String status;
-
-    public PolicyRecord() {
-    }
 
     public Long getId() {
         return id;
     }
 
-    public String getPolicyName() {
-        return policyName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPolicyName(String policyName) {
-        this.policyName = policyName;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -49,12 +41,12 @@ public class PolicyRecord implements Serializable {
         this.description = description;
     }
 
-    public String getCategory() {
-        return category;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getStatus() {
