@@ -395,3 +395,124 @@ docker compose up --build
 
 All services are running successfully. 
 Email functionality is verified using MailHog where test emails are captured.
+
+# Day 10 – Full Integration Testing
+
+##  Objective
+
+Perform full integration testing of the backend application using Docker Compose and verify all services and APIs are working correctly.
+
+---
+
+##  Setup & Execution
+
+```bash id="h3a2zc"
+docker compose down -v
+docker compose up --build
+```
+
+---
+
+##  Services Verification
+
+### 🔹 Health Check
+
+* Endpoint: `GET /actuator/health`
+* Result: All services are **UP**
+
+  * MySQL 
+  * Redis 
+  * MailHog 
+
+---
+
+## 🔹 CRUD Operations Tested
+
+* **Create Policy**
+
+  * `POST /api/policy-records`
+  * Successfully created new policy
+
+* **Get All Policies**
+
+  * `GET /api/policy-records`
+  * Retrieved list of policies
+
+* **Get Policy by ID**
+
+  * `GET /api/policy-records/{id}`
+  * Retrieved specific policy
+
+* **Update Policy**
+
+  * `PUT /api/policy-records/{id}`
+  * Successfully updated policy data
+
+* **Delete Policy**
+
+  * `DELETE /api/policy-records/{id}`
+  * Policy deleted successfully
+
+* **Confirm Delete**
+
+  * `GET /api/policy-records/{id}`
+  * Returned **404 Not Found**
+
+---
+
+## 🔹 Error Handling
+
+* **400 Bad Request**
+
+  * Triggered by sending empty values
+  * Validation working correctly
+
+* **404 Not Found**
+
+  * Accessing deleted or non-existing ID
+  * Proper error message returned
+
+* **500 Internal Server Error**
+
+  * Tested using `/error-test` endpoint
+  * Handled by global exception handler
+
+---
+
+## 🔹 Email Testing
+
+* API:
+
+  * `POST /email/send`
+* Verified using MailHog:
+
+  * `http://localhost:8025`
+* Result: Email successfully received
+
+---
+
+## 🔹 Unit Testing
+
+```bash id="g3n5u8"
+.\mvnw.cmd test
+```
+##screenshoots
+![email](email.png)
+![mailhog](mailhog.png)
+![test helth](<test helth.png>)
+
+* Result: All test cases passed successfully
+
+---
+
+## Conclusion
+
+Successfully performed full integration testing using Docker Compose.
+All services including MySQL, Redis, and MailHog are running properly.
+CRUD operations, validation, exception handling, and email functionality are working as expected.
+
+---
+
+##  Status
+
+✔ Day 10 Completed Successfully

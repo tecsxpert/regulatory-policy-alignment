@@ -26,6 +26,7 @@ public class PolicyRecordService {
         return repository.findAll();
     }
 
+    @Cacheable(value = "policy", key = "#id")
     public PolicyRecord getPolicyById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Policy with ID " + id + " not found"));
