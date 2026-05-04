@@ -1,44 +1,36 @@
 package com.internship.tool.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "policy_record")
 public class PolicyRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Policy name is required")
-    @Size(min = 3, max = 50, message = "Policy name must be between 3 and 50 characters")
-    private String policyName;
-
-    @NotBlank(message = "Description is required")
-    @Size(min = 5, max = 200, message = "Description must be between 5 and 200 characters")
+    private String title;
     private String description;
-
-    @NotBlank(message = "Category is required")
-    private String category;
-
-    @NotBlank(message = "Status is required")
+    private String department;
     private String status;
-
-    public PolicyRecord() {
-    }
 
     public Long getId() {
         return id;
     }
 
-    public String getPolicyName() {
-        return policyName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPolicyName(String policyName) {
-        this.policyName = policyName;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -49,12 +41,12 @@ public class PolicyRecord {
         this.description = description;
     }
 
-    public String getCategory() {
-        return category;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getStatus() {

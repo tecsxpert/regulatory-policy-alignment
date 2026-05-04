@@ -31,10 +31,8 @@ public class PolicyRecordController {
     }
 
     @PutMapping("/{id}")
-    public PolicyRecord updatePolicy(
-            @PathVariable Long id,
-            @Valid @RequestBody PolicyRecord policy
-    ) {
+    public PolicyRecord updatePolicy(@PathVariable Long id,
+                                     @Valid @RequestBody PolicyRecord policy) {
         return service.updatePolicy(id, policy);
     }
 
@@ -44,9 +42,8 @@ public class PolicyRecordController {
         return "Policy deleted successfully";
     }
 
-    // This API is only for testing 500 Internal Server Error
     @GetMapping("/error-test")
-    public String errorTest() {
-        throw new NullPointerException("Testing 500 error");
+    public String test500Error() {
+        throw new RuntimeException("Testing 500 error");
     }
 }
