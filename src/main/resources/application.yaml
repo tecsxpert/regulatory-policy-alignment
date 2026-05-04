@@ -33,3 +33,6 @@ spring:
   web:
     resources:
       add-mappings: false
+
+jwt:
+  secret: aVeryLongAndSecureSecretKeyGeneratedForHmacSha256Algorithm1234567890

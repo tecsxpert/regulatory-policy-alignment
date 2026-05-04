@@ -4,6 +4,7 @@ import com.internship.tool.entity.PolicyRecord;
 import com.internship.tool.service.PolicyRecordService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class PolicyRecordController {
         return service.updatePolicy(id, policy);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public String deletePolicy(@PathVariable Long id) {
         service.deletePolicy(id);
