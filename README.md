@@ -516,3 +516,61 @@ CRUD operations, validation, exception handling, and email functionality are wor
 ##  Status
 
 ✔ Day 10 Completed Successfully
+
+#  Day 11 – Java Full Stack Internship
+
+##  Work Done
+- Tested previously implemented APIs using Postman
+- Verified Register and Login functionality
+- Verified JWT token generation
+- Tested secured APIs using Authorization header
+- Tested CRUD operations (POST, GET, PUT, DELETE)
+
+## Testing Flow
+- Registered user → `/auth/register`
+- Logged in → `/auth/login`
+- Received JWT token
+- Used token to access APIs
+
+##  APIs Tested
+- Register 
+- Login 
+- Token validation 
+- Policy CRUD APIs 
+
+##  Learning
+- How to test APIs using Postman
+- Understanding JWT-based authentication flow
+- Handling Authorization header
+
+##  Conclusion
+Successfully tested all APIs and confirmed proper working of authentication and CRUD operations.
+
+# Day 12 – Java Full Stack Internship
+
+## Description
+On Day 12, the data seeder was upgraded to generate 30 demo records, and UI branding improvements were added using the #1B4F8A color theme, Arial font, and responsive design principles. Docker services and backend APIs were tested successfully.
+
+## Work Done
+- Added 30 demo records using DataSeeder
+- Improved UI design and responsiveness
+- Tested Docker containers and backend APIs
+- Verified MySQL, Redis, and Mailhog integration
+- Performed final code and security checks
+
+## Technologies Used
+- Java Spring Boot
+- MySQL
+- Redis
+- Docker
+- HTML, CSS, JavaScript
+
+## Commands Used
+docker system prune -a
+docker-compose up --build
+
+## screenshots
+![data seeder](<screenshots/day_12/data seeder fronted.png>)
+
+## Conclusion
+The project was successfully tested and prepared for final deployment and demonstration.

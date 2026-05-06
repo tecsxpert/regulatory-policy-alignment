@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Policy Records</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>Policy Records</h2>
+
+    <!-- Button for UI demo -->
+    <button>Add Policy</button><br><br>
+
+    <!-- Input for UI demo -->
+    <input type="text" placeholder="Search policy"><br><br>
+
+    <!-- Data container -->
+    <div id="data"></div>
+
+    <script>
+        fetch('http://localhost:8080/api/policy-records')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('data');
+
+                data.forEach(policy => {
+                    const div = document.createElement('div');
+                    div.className = "card";
+
+                    div.innerHTML = `
+                        <strong>${policy.title}</strong><br>
+                        ${policy.description}<br>
+                        Dept: ${policy.department}<br>
+                        Status: ${policy.status}<br>
+                    `;
+
+                    container.appendChild(div);
+                });
+            });
+    </script>
+
+</body>
+</html>
