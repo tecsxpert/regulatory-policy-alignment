@@ -1,397 +1,344 @@
-# Day 1 &day 2 Progress - Java Developer 1
+# Regulatory Policy Alignment Platform
 
-## 👩‍💻 Work Done Today
+## Overview
 
-Today I worked on setting up the backend for the Regulatory Policy Alignment Tool using Spring Boot. I implemented the core structure and developed REST APIs for managing policy records.
+Regulatory Policy Alignment Platform is a full-stack web application developed using Spring Boot and React for managing organizational policy records, compliance tracking, analytics, and secure document handling.
 
----
-
-## ⚙️ Tasks Completed
-
-### 1. Project Setup
-- Created a Spring Boot project using Maven
-- Configured application properties for PostgreSQL database connection
-- Verified project is running successfully on port 8080
+The application provides secure JWT-based authentication, policy management, analytics dashboards, CSV export functionality, audit logging, file upload support, and Dockerized deployment integration.
 
 ---
 
-### 2. Folder Structure Setup
-Created proper layered architecture:
+# Student Details
 
-- controller → for handling API requests
-- service → for business logic
-- repository → for database operations
-- entity → for mapping database tables
-- config → for security configuration
-
----
-
-### 3. Entity Layer
-- Created `PolicyRecord.java`
-- Mapped fields:
-  - id
-  - policyName
-  - description
-  - category
-  - status
-- Used JPA annotations for table creation
+* **Name:** Zeba Farhat
+* **USN:** 3NA22CS094
+* **Role:** Java Developer 2
+* **Domain:** Full Stack Java Developer Intern
+* **Project Tool Number:** DAA
 
 ---
 
-### 4. Repository Layer
-- Created `PolicyRecordRepository.java`
-- Extended JpaRepository
-- Enabled basic database operations:
-  - save()
-  - findAll()
-  - findById()
-  - deleteById()
+# Tech Stack
+
+## Backend
+
+* Java 17
+* Spring Boot 3
+* Spring Security
+* JWT Authentication
+* PostgreSQL
+* Redis Cache
+* Flyway Migration
+* Spring AOP
+* Swagger / OpenAPI
+* Docker
+
+## Frontend
+
+* React
+* Vite
+* Tailwind CSS
+* Axios
+* Recharts
+
+## Development Tools
+
+* IntelliJ IDEA
+* VS Code
+* Postman
+* Docker Desktop
+* Git & GitHub
+* pgAdmin
 
 ---
 
-### 5. Service Layer
-- Created `PolicyRecordService.java`
-- Implemented business logic for:
-  - Create policy
-  - Retrieve all policies
-  - Retrieve policy by ID
-  - Update policy
-  - Delete policy
+# Features
+
+## Authentication
+
+* User Registration
+* User Login
+* JWT-based Authorization
+* Protected APIs
+
+## Policy Management
+
+* Create Policy
+* Update Policy
+* Delete Policy
+* Search Policies
+* Pagination Support
+* Filter by Status
+* Date Range Filtering
+
+## Analytics
+
+* Policy Statistics Dashboard
+* Charts using Recharts
+* Category-wise Analytics
+* Status-based Analytics
+
+## File Upload
+
+* Upload PDF, PNG, JPG, and TXT files
+* File Validation
+* Local File Storage
+
+## Export
+
+* Export Policy Data to CSV
+
+## Audit Logging
+
+* Audit Logs using Spring AOP
+* Tracks Create, Update, and Delete Operations
+
+## Additional Features
+
+* Swagger API Documentation
+* Dockerized Setup
+* Redis Caching
+* Email Notification Support
 
 ---
 
-### 6. Controller Layer
-- Created `PolicyRecordController.java`
-- Implemented REST APIs:
+# Security Features
 
-  - POST `/policy` → Create new policy
-  - GET `/policy` → Get all policies
-  - GET `/policy/{id}` → Get policy by ID
-  - PUT `/policy/{id}` → Update policy
-  - DELETE `/policy/{id}` → Delete policy
-
----
-
-### 7. Security Configuration
-- Created `SecurityConfig.java`
-- Disabled CSRF for testing
-- Allowed all API requests using `permitAll()`
+* JWT-based Authentication and Authorization
+* Spring Security Integration
+* Protected REST API Endpoints
+* BCrypt Password Encryption
+* Backend Request Validation
+* Secure File Upload Validation
+* Token-based API Access Control
 
 ---
 
-### 8. Database Integration
-- Connected Spring Boot with PostgreSQL
-- Verified that table `policy_record` is created automatically
-- Confirmed data is stored in database
+# Project Structure
 
----
+```bash id="jlwm99"
+backend/
+ ├── controller/
+ ├── service/
+ ├── repository/
+ ├── entity/
+ ├── config/
+ └── exception/
 
-### 9. API Testing
-- Tested all APIs using Postman
-
-Verified:
-- POST request successfully saves data
-- GET request retrieves all data
-- GET by ID returns specific record
-- PUT request updates data correctly
-- DELETE request removes data
-
----
-
-## 🧪 Sample API Tested
-
-### POST /policy
-```json
-{
-  "policyName": "Security Policy",
-  "description": "Protects system data",
-  "category": "IT",
-  "status": "Active"
-}
+frontend/
+ ├── src/
+ ├── pages/
+ ├── components/
+ ├── services/
+ └── context/
 ```
 
 ---
 
-## 🚀 Current Status
+# Backend Setup
 
-✔ Spring Boot backend setup completed  
-✔ PostgreSQL database connected successfully  
-✔ Layered architecture implemented  
-✔ CRUD APIs developed  
-✔ All APIs tested using Postman  
+## Prerequisites
 
----
+* Java 17
+* Maven
+* PostgreSQL
+* Redis
 
-## 📅 Next Plan
+## Run Backend
 
-- Implement JWT Authentication
-- Add validation annotations (@NotNull, @Size)
-- Add exception handling
-- Improve security configuration
+```bash id="jlwm100"
+./mvnw spring-boot:run
+```
 
-## Day 3 Progress - Java Developer 1
+Backend runs on:
 
-### Work Done Today
-
-Today I worked on improving the backend logic of the Regulatory Policy Alignment Tool. I completed the service layer properly and added exception handling for API errors.
-
-### Tasks Completed
-
-#### 1. Service Layer Improvement
-- Updated `PolicyRecordService.java`
-- Implemented proper business logic for:
-  - Create policy
-  - Get all policies
-  - Get policy by ID
-  - Update policy
-  - Delete policy
-
-#### 2. Full Update Logic
-- Improved update API logic
-- Updated all fields:
-  - policyName
-  - description
-  - category
-  - status
-
-#### 3. Exception Handling
-- Created `GlobalExceptionHandler.java`
-- Added handling for:
-  - Validation errors
-  - Runtime exceptions
-  - General exceptions
-
-#### 4. API Testing
-- Tested APIs in Postman:
-  - POST
-  - GET all
-  - GET by ID
-  - PUT
-  - DELETE
-
-### Status
-
-✅ Service layer completed  
-✅ Update logic improved  
-✅ Exception handling added  
-✅ CRUD APIs tested successfully  
-
-### Next Plan
-
-- Add validation annotations
-- Improve controller responses
-- Continue remaining backend tasks step by step
-
-
-# Regulatory Policy Alignment
-
-## Day 4 Progress – Java Developer 1
-
-### 🔹 Work Done Today
-Implemented REST Controller and tested all CRUD APIs using Postman. Verified that all endpoints are working correctly.
+```text id="jlwm101"
+http://localhost:8080
+```
 
 ---
 
-## 🔹 Tasks Completed
+# Frontend Setup
 
-### 1. REST Controller Implementation
-- Created `PolicyRecordController.java`
-- Added following endpoints:
-  - POST → Create new policy
-  - GET → Fetch all policies
-  - GET by ID → Fetch single policy
-  - PUT → Update policy
-  - DELETE → Delete policy
+## Install Dependencies
 
----
+```bash id="jlwm102"
+npm install
+```
 
-### 2. API Testing (Postman)
+## Run Frontend
 
-All APIs tested successfully:
+```bash id="jlwm103"
+npm run dev
+```
 
--  Create Policy (POST)
--  Get All Policies (GET)
--  Get Policy by ID (GET)
--  Update Policy (PUT)
--  Delete Policy (DELETE)
-- Invalid ID Handling (Error case tested)
+Frontend runs on:
+
+```text id="jlwm104"
+http://localhost:5173
+```
 
 ---
 
-## 🔹 Screenshots
+# Docker Setup
 
-###  Create Policy
-![Create](screenshots/post.png)
+## Run All Services
 
-###  Get All Policies
-![Get All](screenshots/get_all.png)
-
-###  Get Policy By ID
-![Get By ID](screenshots/get_by_id.png)
-
-###  Update Policy
-![Update](screenshots/update.png)
-
-###  Delete Policy
-![Delete](screenshots/delete_data.png)
-
-###  Confirm Delete
-![Confirm Delete](screenshots/confirm_delete.png)
-
-###  Invalid ID Handling
-![Invalid](screenshots/invalide_id.png)
-
----
-
-## 🔹 Status
-✔ Controller implemented successfully  
-✔ All CRUD APIs working  
-✔ Error handling verified  
-
----
-
-## 🔹 Next Plan (Day 5)
-- Implement JWT Authentication
-- Add validation annotations (@NotNull, @Size)
-- Improve security configuration
-
-## Day 5 - JWT Authentication
-
-### Description
-Implemented authentication and security using JWT (JSON Web Token).
-
-### Work Done
-- Created User entity and UserRepository
-- Implemented AuthController with:
-  - Register API (/auth/register)
-  - Login API (/auth/login)
-  - Refresh API (/auth/refresh)
-- Generated JWT token using JwtUtil
-- Implemented JwtAuthFilter to validate token for each request
-- Configured Spring Security using SecurityConfig
-- Secured policy APIs using JWT token
-
-### APIs Tested
-1. Register API  
-   POST /auth/register  
-   Stores user in database  
-
-2. Login API  
-   POST /auth/login  
-   Validates user and returns JWT token  
-
-3. Refresh API  
-   POST /auth/refresh  
-   Generates new token from old token  
-
-4. Protected API  
-   GET /policy  
-   Requires Authorization header  
-
-### Learning Outcome
-- Understood JWT authentication flow
-- Learned how to secure APIs using Spring Security
-- Implemented request filtering using JwtAuthFilter
- 
- ## Day 6 - Caching and RBAC
-
-### Work Done
-- Implemented JWT-based authentication
-- Protected APIs using Authorization header
-- Enabled caching using @EnableCaching
-- Used @Cacheable on GET APIs
-- Used @CacheEvict on CREATE, UPDATE, DELETE APIs
-- Configured simple in-memory cache
-- Tested all APIs using Postman
-
-### APIs Tested
-- POST /auth/register
-- POST /auth/login
-- GET /policy
-- PUT /policy/{id}
-- DELETE /policy/{id}
-
-### Learning Outcome
-Learned how caching improves performance and how RBAC secures APIs using JWT tokens.
-
-## Day 7 - Email Notification & Scheduler
-
-### Description
-
-Implemented email notification system using JavaMailSender and Thymeleaf templates. Added scheduled tasks for daily reminders and deadline alerts using @Scheduled annotation.
-
-### Work Done
-
-* Added JavaMailSender dependency for email sending
-* Created EmailService to handle email logic
-* Used Thymeleaf template (reminder-email.html) for dynamic email content
-* Created EmailController API to trigger email notifications
-* Implemented ReminderScheduler with @Scheduled annotation
-
-  * Daily reminder (9 AM)
-  * Deadline alert (6 PM)
-* Configured application.yaml for mail properties
-* Tested email API in demo mode
-
-### API Tested
-
-POST /email/send?toEmail=[example@gmail.com](mailto:example@gmail.com)
-
-### Output
-
-* Demo email notification generated successfully
-* Console logs show scheduler execution
-
-### Learning Outcome
-
-* Learned how to implement email notifications using Spring Boot
-* Understood Thymeleaf template integration for dynamic email content
-* Learned scheduling using @Scheduled annotation
-* Understood SMTP configuration and security (App Password concept)
-
-# Day 8 – Exception Handling and Unit Testing
-
-## Task
-@ControllerAdvice – 404/400/500 consistent JSON response.  
-10 JUnit 5 unit tests for Service with Mockito.
-
----
-
-## Work Done
-- Implemented global exception handling using `@RestControllerAdvice`
-- Added consistent JSON response for 400, 404 and 500 errors
-- Added 10 JUnit 5 test cases for `PolicyRecordService`
-- Used Mockito to mock repository layer
-- All tests passed successfully
-
----
-
-## Screenshots
-
-### 400 – Bad Request
-![400 Error](screenshots/day8/400.png)
-
-### 404 – Not Found
-![404 Error](screenshots/day8/404.png)
-
-### 500 – Internal Server Error
-![500 Error](screenshots/day8/500.png)
-
-
----
-
-## Status
-Day 8 Completed 
-
-In Day 9, I configured Docker Compose to run multiple services including:
-- Spring Boot backend
-- MySQL database
-- Redis cache
-- MailHog for email testing
-- phpMyAdmin for database management
-
-I added health checks for all services and tested using:
+```bash id="jlwm105"
 docker compose up --build
+```
 
-All services are running successfully. 
-Email functionality is verified using MailHog where test emails are captured.
+## Docker Services
+
+* Spring Boot Backend
+* PostgreSQL
+* Redis
+* MailHog
+
+---
+
+# Swagger API Documentation
+
+Open Swagger UI:
+
+```text id="jlwm106"
+http://localhost:8080/swagger-ui/index.html
+```
+
+---
+
+# Sample APIs
+
+## Authentication APIs
+
+```http id="jlwm107"
+POST /api/auth/register
+POST /api/auth/login
+```
+
+## Policy APIs
+
+```http id="jlwm108"
+GET    /api/policy-records
+POST   /api/policy-records
+PUT    /api/policy-records/{id}
+DELETE /api/policy-records/{id}
+```
+
+## Search API
+
+```http id="jlwm109"
+GET /api/policy-records/search
+```
+
+## Export API
+
+```http id="jlwm110"
+GET /api/policy-records/export
+```
+
+## Upload API
+
+```http id="jlwm111"
+POST /api/policy-records/{id}/upload
+```
+
+---
+
+# Current Project Status
+
+* Backend Completed
+* Frontend Completed
+* JWT Authentication Integrated
+* Analytics Dashboard Implemented
+* Upload Feature Implemented
+* Docker Setup Configured
+* Swagger Documentation Configured
+* Audit Logging Implemented
+* Frontend-Backend Integration Stabilized
+
+---
+
+# Final Demo Features
+
+* JWT-based Authentication and Authorization
+* Policy CRUD Management
+* Advanced Search and Filtering
+* CSV Export Functionality
+* File Upload with Validation
+* Analytics Dashboard
+* Redis Caching Integration
+* Flyway Database Migrations
+* Swagger/OpenAPI Documentation
+* Dockerized Backend Deployment
+* Responsive React Frontend
+
+---
+
+# Demo Flow
+
+1. User Authentication (JWT Login/Register)
+2. Dashboard Analytics Overview
+3. Policy Management
+4. Search and Filter Operations
+5. File Upload Validation
+6. CSV Export Functionality
+7. Swagger API Verification
+8. Dockerized Backend Verification
+
+---
+
+# Screenshots
+
+## Login Page
+
+   Login-1.png
+   
+## Dashboard
+
+   dashboard-1.png
+
+## Policy Management
+
+   Policy-list.png
+
+## Swagger API
+
+   Swagger.png
+
+## Docker Containers
+   docker.png
+
+---
+
+# Challenges Faced
+
+* Frontend-backend Integration
+* Docker Networking Configuration
+* JWT Authentication Stabilization
+* Database Migration Consistency
+* API Endpoint Synchronization
+
+---
+
+# Learnings
+
+* REST API Integration
+* Dockerized Deployment
+* Secure Authentication Handling
+* Full-stack Debugging and Testing
+* Backend Deployment Stabilization
+
+---
+
+# Conclusion
+
+The Regulatory Policy Alignment Platform successfully demonstrates secure full-stack application development with modern backend architecture, responsive frontend integration, Dockerized deployment, secure authentication, and scalable policy management workflows.
+
+The project provides a stable and demo-ready solution for regulatory policy management and analytics workflows.
+
+---
+
+# Author
+
+**Zeba Farhat**
