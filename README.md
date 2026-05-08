@@ -183,6 +183,7 @@ POST /auth/register
 
 ```http
 POST /auth/login
+
 ```
 
 ### Refresh Token

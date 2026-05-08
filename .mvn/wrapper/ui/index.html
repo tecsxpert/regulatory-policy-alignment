@@ -4,39 +4,162 @@
     <title>Policy Records</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <h2>Policy Records</h2>
 
-    <!-- Button for UI demo -->
-    <button>Add Policy</button><br><br>
+    <button onclick="showForm()">Add Policy</button>
+    <button onclick="exportCSV()">Export CSV</button>
 
-    <!-- Input for UI demo -->
-    <input type="text" placeholder="Search policy"><br><br>
+    <br><br>
 
-    <!-- Data container -->
+    <div id="formBox" style="display:none;">
+        <input type="text" id="title" placeholder="Policy title"><br><br>
+        <input type="text" id="description" placeholder="Description"><br><br>
+        <input type="text" id="department" placeholder="Department"><br><br>
+        <input type="text" id="status" placeholder="Status"><br><br>
+        <button onclick="addPolicy()">Save Policy</button>
+    </div>
+
+    <br>
+
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search policy"
+        onkeyup="searchPolicies()"
+    >
+
+    <br><br>
+
+    <h3>Audit Log</h3>
+    <div id="auditLog"></div>
+
+    <br>
+
     <div id="data"></div>
 
     <script>
-        fetch('http://localhost:8080/api/policy-records')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('data');
+        let allPolicies = [];
 
-                data.forEach(policy => {
-                    const div = document.createElement('div');
-                    div.className = "card";
+        function addAuditLog(message) {
+            const auditBox = document.getElementById("auditLog");
 
-                    div.innerHTML = `
-                        <strong>${policy.title}</strong><br>
-                        ${policy.description}<br>
-                        Dept: ${policy.department}<br>
-                        Status: ${policy.status}<br>
-                    `;
+            const log = document.createElement("p");
+            const time = new Date().toLocaleString();
 
-                    container.appendChild(div);
+            log.innerText = time + " - " + message;
+
+            auditBox.prepend(log);
+        }
+
+        function loadPolicies() {
+            fetch("http://localhost:8080/api/policy-records")
+                .then(response => response.json())
+                .then(data => {
+                    allPolicies = data;
+                    displayPolicies(allPolicies);
+                    addAuditLog("Policy records loaded");
                 });
+        }
+
+        loadPolicies();
+
+        function displayPolicies(policies) {
+            const container = document.getElementById("data");
+            container.innerHTML = "";
+
+            policies.forEach(policy => {
+                const div = document.createElement("div");
+                div.className = "card";
+
+                div.innerHTML = `
+                    <strong>${policy.title}</strong><br>
+                    ${policy.description}<br>
+                    Dept: ${policy.department}<br>
+                    Status: ${policy.status}<br>
+                `;
+
+                container.appendChild(div);
             });
+        }
+
+        function showForm() {
+            document.getElementById("formBox").style.display = "block";
+            addAuditLog("Add Policy form opened");
+        }
+
+        function addPolicy() {
+            const policy = {
+                title: document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                department: document.getElementById("department").value,
+                status: document.getElementById("status").value
+            };
+
+            fetch("http://localhost:8080/api/policy-records", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(policy)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Policy added successfully");
+                    addAuditLog("New policy added: " + policy.title);
+
+                    document.getElementById("formBox").style.display = "none";
+
+                    document.getElementById("title").value = "";
+                    document.getElementById("description").value = "";
+                    document.getElementById("department").value = "";
+                    document.getElementById("status").value = "";
+
+                    loadPolicies();
+                } else {
+                    alert("Error adding policy");
+                    addAuditLog("Failed to add policy");
+                }
+            });
+        }
+
+        function searchPolicies() {
+            const searchValue = document.getElementById("searchInput").value.toLowerCase();
+
+            const filteredPolicies = allPolicies.filter(policy => {
+                return (
+                    String(policy.title).toLowerCase().includes(searchValue) ||
+                    String(policy.description).toLowerCase().includes(searchValue) ||
+                    String(policy.department).toLowerCase().includes(searchValue) ||
+                    String(policy.status).toLowerCase().includes(searchValue)
+                );
+            });
+
+            displayPolicies(filteredPolicies);
+
+            if (searchValue !== "") {
+                addAuditLog("Searched policy: " + searchValue);
+            }
+        }
+
+        function exportCSV() {
+            let csv = "Title,Description,Department,Status\n";
+
+            allPolicies.forEach(policy => {
+                csv += `"${policy.title}","${policy.description}","${policy.department}","${policy.status}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv" });
+            const link = document.createElement("a");
+
+            link.href = URL.createObjectURL(blob);
+            link.download = "policy_records.csv";
+            link.click();
+
+            addAuditLog("CSV file exported");
+        }
     </script>
 
 </body>
